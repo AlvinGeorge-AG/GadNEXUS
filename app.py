@@ -1,0 +1,118 @@
+from flask import Flask, request, session, redirect, render_template
+from pymongo import MongoClient
+from werkzeug.security import check_password_hash , generate_password_hash
+from dotenv import load_dotenv
+from datetime import datetime
+import os
+
+now = datetime.now()
+app = Flask(__name__)
+load_dotenv()
+app.secret_key = os.getenv("key")
+flag = False
+
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["GadNexus"]
+users = db["users"]
+posts= db["posts"]
+
+@app.route("/")
+@app.route("/index")
+def index():
+    data = list(posts.find())
+    return render_template("index.html",data=data)
+
+
+@app.route("/login",methods=["POST","GET"])
+def login():
+    if(request.method=="POST"):
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = users.find_one({"username" : username})
+        if(user and check_password_hash(user["password"],password)):
+            session["username"]=username
+            return redirect("/dashboard")
+        else:
+            return render_template("error.html",error = "Username or Password is Incorrect !")
+    return render_template("login.html", flag = False)
+
+
+@app.route("/register",methods=["POST","GET"])
+def reg():
+        if(request.method=="POST"):
+            username = request.form.get("username")
+            password = request.form.get("password")
+            email = request.form.get("email")
+            fname = request.form.get("fname")
+            if(users.find_one({"username":username})):
+                return render_template("error.html",error="The user already Exits ! Please Log In")
+            hashpassword = generate_password_hash(password)
+            user = {"username":username , "password":hashpassword , "email":email,"fname":fname}
+            users.insert_one(user)
+            return render_template("login.html",flag=True,message="Account Created , Please Login !")
+        else:
+            return render_template("register.html") 
+    
+
+
+@app.route("/dashboard")
+def dash():
+    if("username" in session):
+        return render_template("dashboard.html",user=session["username"])
+    else:
+            return render_template("error.html",error="Please Log In !")
+
+
+@app.route("/logout",methods=["POST","GET"])
+def logout():
+    if ("username" in session):
+        session.pop("username", None)
+        return redirect("/")
+    else:
+        return render_template("error.html",error="Please Log In First !")
+
+
+@app.route("/reset", methods=["POST","GET"])
+def reset():
+     if(request.method=="POST"):
+        username = request.form.get("username")
+        newpassword = request.form.get("newpassword")
+        newhash_password = generate_password_hash(newpassword)
+        email  = request.form.get("email")
+        user = users.find_one({"username":username , "email":email})
+        if(user):
+            users.update_one(
+                {"username": username},
+                {"$set": {"password": newhash_password}})
+            return render_template("login.html",flag=True,message="Account Reset Succesfull !")
+        else:
+            return render_template("error.html",error="Email or Username Not Found !")  
+     else:     
+        return render_template("reset.html")
+
+
+
+@app.route("/dashboard/upload",methods=["POST","GET"])
+def post_upload():
+    if("username" in session):
+        if(request.method=="POST"):
+            title = request.form.get("title")
+            description = request.form.get("description")
+            image_url = request.form.get("image_url")
+            date = now.strftime("%B %Y")
+            dbuser = users.find_one({"username":session["username"]})
+            user = dbuser["fname"]
+            post = {"title":title , "description":description , "date":date ,"fname":user}
+            posts.insert_one(post)
+            return redirect("/index")
+        else:
+            return render_template("postupload.html")   
+    else:
+            return render_template("error.html",error="Please Log In !")
+
+
+
+
+if(__name__=="__main__"):
+    app.run(debug=True)
