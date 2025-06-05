@@ -9,11 +9,12 @@ now = datetime.now()
 app = Flask(__name__)
 load_dotenv()
 app.secret_key = os.getenv("key")
+MONGO_URL = os.getenv("MONGO_URL")
 flag = False
 
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["GadNexus"]
+client = MongoClient(MONGO_URL)
+db = client["gadnexus"]
 users = db["users"]
 posts= db["posts"]
 
