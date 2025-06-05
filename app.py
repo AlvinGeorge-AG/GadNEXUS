@@ -11,7 +11,7 @@ load_dotenv()
 app.secret_key = os.getenv("key")
 MONGO_URL = os.getenv("MONGO_URL")
 flag = False
-
+boo = 0
 
 client = MongoClient(MONGO_URL)
 db = client["gadnexus"]
@@ -22,7 +22,11 @@ posts= db["posts"]
 @app.route("/index")
 def index():
     data = list(posts.find())
-    return render_template("index.html",data=data)
+    if("username" in session):
+        boo =1
+    else:    
+        boo=0
+    return render_template("index.html",data=data,boo=boo)
 
 
 @app.route("/login",methods=["POST","GET"])

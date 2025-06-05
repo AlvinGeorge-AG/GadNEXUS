@@ -69,7 +69,17 @@
       font-weight: 600;
       transition: background 0.2s;
     }
-
+    .logout{
+      background-color: red;
+      border: none;
+      color: rgb(0, 0, 0);
+      padding: 0.4rem 1rem;
+      margin-left: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
     .header-buttons button:hover {
       background-color: #3b82c4;
     }
@@ -184,6 +194,9 @@
         <a href="/login" class="btn btn-info text-black me-2">LOGIN</a>
         <a href="/register" class="btn btn-info text-black me-2">REGISTER</a>
         <a href="/dashboard" class="btn btn-info text-black"><span>MY POST'S</span></a> 
+        {% if boo %}
+          <a href="/logout"><button class="logout">Logout</button></a>
+        {% endif %}
       </div>
     </div>
     <div class="text-center text-md-start mt-2">
