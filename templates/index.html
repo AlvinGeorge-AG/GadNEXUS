@@ -191,7 +191,10 @@
       </div>
       <div class="col-md-8 text-center text-md-end">
         <br>
-        <a href="/login" class="btn btn-info text-black me-2">LOGIN</a>
+        {% if notboo %}
+          <a href="/login" class="btn btn-info text-black me-2">LOGIN</a>
+        {% endif %}
+        
         <a href="/register" class="btn btn-info text-black me-2">REGISTER</a>
         <a href="/dashboard" class="btn btn-info text-black"><span>MY POST'S</span></a> 
         {% if boo %}
