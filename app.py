@@ -30,7 +30,7 @@ posts= db["posts"]
 @app.route("/")
 @app.route("/index")
 def index():
-    data = list(posts.find().sort("created_at",-1))
+    data = list(posts.find().sort("created_at",-1)) #to sort the posts in Antichronological order
     if("username" in session):
         boo =1
         notboo = 0
@@ -89,6 +89,28 @@ def delete():
     posts.delete_one(document)
     return redirect("/dashboard")
 
+@app.route("/dashboard/edit/",methods=["POST","GET"])
+def edit():
+    
+    if(request.method=="GET"):
+        id = request.args.get("id")
+        document = posts.find_one({"_id":ObjectId(id)})
+        return render_template("edit.html",post=document)
+    else:   
+        id = request.form.get("id")    
+        document = posts.find_one({"_id":ObjectId(id)})
+        title = request.form.get("title")
+        description = request.form.get("description")
+        image_url = request.form.get("image_url")
+        date = now.strftime("%B %Y")
+        dbuser = users.find_one({"username":session["username"]})
+        user = dbuser["fname"]
+        post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}   
+        posts.update_one(
+            { '_id': ObjectId(id)},
+            { '$set' :post}
+        ) 
+        return redirect('/dashboard')
 
 @app.route("/logout",methods=["POST","GET"])
 def logout():

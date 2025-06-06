@@ -131,7 +131,11 @@
                     <input type="text" value="{{post._id}}" name="id" hidden>
                     <button class="delete-button" type="submit">Delete</button>
                   </form>
-                  <button class="edit-button">Edit</button> 
+                  <form method="GET" action="dashboard/edit">
+                    <input type="text" value="{{post._id}}" name="id" hidden>
+                    <button class="edit-button" type="submit">Edit</button> 
+                  </form>
+                  
                  </div> 
             </div>
         {% endfor %} 

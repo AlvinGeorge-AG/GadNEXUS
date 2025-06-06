@@ -1,67 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Update Post - GadgetSphere</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;400&display=swap" rel="stylesheet" />
+{% extends "layout.html" %}
+{% block title %}
+        <meta charset="UTF-8"> 
+        <title>Create a New Gadget Post</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 
+{% endblock %}  
+{% block style %}
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #16a085, #f4d03f);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+   body { 
+                margin: 0; 
+                padding: 0; 
+                font-family: 'Inter', sans-serif; 
+                background: linear-gradient(135deg, #16a085, #f4d03f); 
+                min-height: 100vh; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+            }
+            .container {
+                background: #fff;
+                padding: 30px 35px;
+                max-width: 600px;
+                width: 90%;
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 2rem;
-      max-width: 600px;
-      width: 80%;
-      height: 15px;
-      max-height: 15px;
-      text-align: center;
-    }
+                .container h2 {
+                margin-top: 0;
+                font-size: 1.8em;
+                color: #222;
+                margin-bottom: 25px;
+                text-align: center;
+                }
 
-    .post-title {
-      font-size: 1.09rem;
-      font-weight: 60;
-      margin-bottom: 1rem;
-      color: #333;
-    }
+                label {
+                font-weight: 600;
+                display: block;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                color: #444;
+                }
 
-    .edit-button {
-      padding: 0.3rem 1.2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: hsl(0, 0%, 0%);
-      background-color: #4ea8de;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-    
-      transition: background 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+                input[type="text"],
+                textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-size: 1em;
+                resize: vertical;
+                }
 
-    .edit-button:hover {
-      background-color: #3b82c4;
-    }
+                textarea {
+                min-height: 120px;
+                }
+
+                .submit-btn {
+                margin-top: 25px;
+                background-color: #16a085;
+                color: white;
+                border: none;
+                padding: 14px;
+                width: 100%;
+                font-size: 1em;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                }
+
+                .submit-btn:hover {
+                background-color: #12876c;
+                }
+
+                @media (max-width: 480px) {
+                .container {
+                    padding: 25px 20px;
+                }
+                }
 
 
+            .control-btn {
+                display: flex;
+                justify-content: flex-end;
+                gap: 15px;
+                margin-top: 30px;
+                margin-bottom: 20px;
+                padding: 10px 0;
+            }
+
+            /* Base styles for all buttons within this container */
+            .control-btn button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                color: white; /* Default text color for buttons */
+            }
+
+            /* Specific style for the Cancel button */
+            .cancel-btn {
+                background-color: #dc3545; /* Red color */
+            }
+
+            .cancel-btn:hover {
+                background-color: #c82333; /* Darker red on hover */
+            }
+
+            /* Specific style for the Update Post button */
+            .update-btn {
+                background-color: #007bff; /* Blue color */
+            }
+
+            .update-btn:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+            }
+        
   </style>
-</head>
-<body>
-  <div class="card">
-    <div class="post-title">The Future of Foldable Phones 
-        <button class="edit-button">Edit Post</button>
-    </div>
-  </div>
-</body>
-</html>
+{% endblock %}  
+{% block inputform %}
+        <div class="container"> 
+            <h2>Update a Gadget Post</h2> 
+            <form action="/dashboard/edit/" method="POST"> 
+                <label for="title">Title</label> 
+                <input type="text" id="title" name="title" value="{{post.title}}" required>   
+                <label for="description">Short Description</label>
+                <textarea id="description" name="description" required>{{post.description}}</textarea>
+                <label for="image_url">Image URL (optional)</label>
+                <input type="text" id="image_url" name="image_url" placeholder="https://example.com/image.jpg">
+                <div class="control-btn">
+                    <input type="hidden" name="id" value="{{ post._id }}">
+                    <button type="button" class="cancel-btn" onclick="location.href='/dashboard'">Cancel</button>
+                    <button type="submit" class="update-btn">Update Post</button>
+                </div>   
+            </form>
+
+        </div> 
+{% endblock %}
+             
