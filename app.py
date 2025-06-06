@@ -30,7 +30,7 @@ posts= db["posts"]
 @app.route("/")
 @app.route("/index")
 def index():
-    data = list(posts.find())
+    data = list(posts.find().sort("created_at",-1))
     if("username" in session):
         boo =1
         notboo = 0
@@ -129,9 +129,9 @@ def post_upload():
             date = now.strftime("%B %Y")
             dbuser = users.find_one({"username":session["username"]})
             user = dbuser["fname"]
-            post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username']}
+            post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}
             posts.insert_one(post)
-            return redirect("/index")
+            return redirect("/dashboard")
         else:
             return render_template("postupload.html")   
     else:
