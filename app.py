@@ -1,3 +1,4 @@
+#importing the needed packages
 from flask import Flask, request, session, redirect, render_template
 from pymongo import MongoClient
 from werkzeug.security import check_password_hash , generate_password_hash
@@ -10,14 +11,19 @@ app = Flask(__name__)
 load_dotenv()
 app.secret_key = os.getenv("key")
 MONGO_URL = os.getenv("MONGO_URL")
+# defining variable's for user interaction 
 flag = False
 boo = 0
 notboo = 0
+
+#connecting app to Mongodb Atlas
 client = MongoClient(MONGO_URL)
 db = client["gadnexus"]
 users = db["users"]
 posts= db["posts"]
 
+
+#defining the needed route's
 @app.route("/")
 @app.route("/index")
 def index():
@@ -120,6 +126,6 @@ def post_upload():
 
 
 
-
+#for debugging
 if(__name__=="__main__"):
     app.run(debug=True)
