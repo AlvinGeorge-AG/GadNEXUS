@@ -19,7 +19,11 @@
 {% endblock %}  
 {% block inputform %}
   <div class="login-box">
-    <h2>{{error}}</h2>
-    <a href="/index"><button class="btn btn-info text-white me-2">GO HOME</button></a>
+    <h1>{{error}}</h1>
+    {% if loginerror %}
+      <a href="/login"><button class="btn btn-info text-white me-2">BACK</button></a>
+    {% else %}
+      <a href="/index"><button class="btn btn-info text-white me-2">GO HOME</button></a>
+    {% endif %}  
   </div>
 {% endblock %}

@@ -15,6 +15,7 @@ MONGO_URL = os.getenv("MONGO_URL")
 flag = False
 boo = 0
 notboo = 0
+loginerror=0
 
 #connecting app to Mongodb Atlas
 client = MongoClient(MONGO_URL)
@@ -47,7 +48,7 @@ def login():
             session["username"]=username
             return redirect("/dashboard")
         else:
-            return render_template("error.html",error = "Username or Password is Incorrect !")
+            return render_template("error.html",error = "Username or Password is Incorrect !",loginerror=1)
     return render_template("login.html", flag = False)
 
 
