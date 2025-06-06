@@ -9,6 +9,7 @@ import os
 now = datetime.now()
 app = Flask(__name__)
 load_dotenv()
+#for hiding secert details from public
 app.secret_key = os.getenv("key")
 MONGO_URL = os.getenv("MONGO_URL")
 # defining variable's for user interaction 
