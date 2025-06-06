@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from werkzeug.security import check_password_hash , generate_password_hash
 from dotenv import load_dotenv
 from datetime import datetime
+from bson import ObjectId
 import os
 
 now = datetime.now()
@@ -73,10 +74,20 @@ def reg():
 
 @app.route("/dashboard")
 def dash():
+    
     if("username" in session):
-        return render_template("dashboard.html",user=session["username"])
+        data = list(posts.find({"username":session["username"]}))
+        return render_template("dashboard.html",user=session["username"],data=data)
     else:
             return render_template("error.html",error="Please Log In !")
+
+
+@app.route("/delete",methods=["POST"])
+def delete():
+    id = request.form.get("id")
+    document = posts.find_one({"_id":ObjectId(id)})
+    posts.delete_one(document)
+    return redirect("/dashboard")
 
 
 @app.route("/logout",methods=["POST","GET"])
@@ -118,7 +129,7 @@ def post_upload():
             date = now.strftime("%B %Y")
             dbuser = users.find_one({"username":session["username"]})
             user = dbuser["fname"]
-            post = {"title":title , "description":description , "date":date ,"fname":user}
+            post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username']}
             posts.insert_one(post)
             return redirect("/index")
         else:
