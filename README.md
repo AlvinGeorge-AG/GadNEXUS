@@ -27,16 +27,16 @@ A full-stack gadget blog platform built with Flask, MongoDB, and Jinja — where
 
 ## 📁 Folder Structure
 
-├── app.py # Main Flask app
-├── templates/
-│ ├── layout.html # Base layout
-│ ├── index.html # Public blog home page
-│ ├── dashboard.html # Logged-in user dashboard
-│ ├── login.html # Login page
-│ ├── register.html # Register page
-│ ├── add.html # Create post form
-│ ├── edit.html # Edit post form
-├── vercel.json # Vercel deployment config
+├── app.py # Main Flask app <br>
+├── templates/<br>
+│ ├── layout.html # Base layout<br>
+│ ├── index.html # Public blog home page<br>
+│ ├── dashboard.html # Logged-in user dashboard<br>
+│ ├── login.html # Login page<br>
+│ ├── register.html # Register page<br>
+│ ├── add.html # Create post form<br>
+│ ├── edit.html # Edit post form<br>
+├── vercel.json # Vercel deployment config<br>
 └── README.md
 
 ---
