@@ -34,7 +34,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      height: 130px;
+      height: 100px;
     }
     header h1{
       position: absolute;
@@ -42,13 +42,7 @@
       left: 20px;
     }
 
-    .header-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
+    
 
     .header-title {
       font-size: 2rem;
@@ -57,18 +51,6 @@
 
     }
 
-    .header-buttons button {
-      background-color: var(--accent);
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      margin-left: 0.5rem;
-      margin-top: 10px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
     .logout{
       background-color: red;
       border: none;
@@ -79,9 +61,6 @@
       cursor: pointer;
       font-weight: 600;
       transition: background 0.2s;
-    }
-    .header-buttons button:hover {
-      background-color: #3b82c4;
     }
 
     header p {
@@ -94,6 +73,58 @@
       top: 40px;
       left: 20px;
     }
+
+
+
+
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      background-color: var(--accent);
+      border: none;
+      color: black;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #1e1e1e;
+      border-radius: var(--radius);
+      min-width: 160px;
+      right: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+
+    .dropdown-menu a {
+      color: white;
+      padding: 10px 16px;
+      display: block;
+      text-decoration: none;
+      border-bottom: 1px solid #444;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: var(--accent);
+      color: black;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+
+
+
+
 
     .container {
       max-width: 900px;
@@ -188,23 +219,24 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-4 text-center text-md-start mb-2 mb-md-0">
-        <h1 class="h3 fw-bold">GadNEXUS</h1>
+        <h1 class="h3 fw-bold">Gad<span style="color: #4ea8de;">NEXUS</span></h1>
+        <p class="text-light m-0">Discover the Latest Gadgets of the Time</p>
       </div>
       <div class="col-md-8 text-center text-md-end">
-        <br>
-        {% if notboo %}
-          <a href="/login" class="btn btn-info text-black me-2">LOGIN</a>
-        {% endif %}
-        
-        <a href="/register" class="btn btn-info text-black me-2">REGISTER</a>
-        <a href="/dashboard" class="btn btn-info text-black"><span>MY POST'S</span></a> 
-        {% if boo %}
-          <a href="/logout"><button class="logout">Logout</button></a>
-        {% endif %}
+        <div class="dropdown">
+          <button class="dropdown-toggle">Menu</button>
+          <div class="dropdown-menu">
+            {% if notboo %}
+              <a href="/login">LOGIN</a>
+            {% endif %}
+            <a href="/register">REGISTER</a>
+            <a href="/dashboard">MY POST'S</a> 
+            {% if boo %}
+              <a href="/logout" class="logout">Logout</a>
+            {% endif %}
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="text-center text-md-start mt-2">
-      <p class="text-light m-0">Discover the Latest Gadgets of the Time</p>
     </div>
   </div>
 </header>
