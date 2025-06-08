@@ -12,6 +12,8 @@ A full-stack gadget blog platform built with Flask, MongoDB, and Jinja — where
 - 📱 Mobile-friendly responsive design
 - ☁️ MongoDB Atlas cloud database
 - 🚀 Deployed on Vercel with GitHub auto-deployment
+- 🚀 Admin LogIn is Implemented With Multi Factor Authentication
+- 🚀 Admin Is verified with Email OTP
 
 ---
 
