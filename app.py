@@ -192,6 +192,11 @@ def adpag():
     else:
         return render_template("error.html",error="Please Sign In as an Admin !")
 
+@app.route("/adminlogout",methods=["POST"])
+def adlogout():
+    global adminbool
+    adminbool = 0
+    return redirect('/')
 def send_otp(receiver_email,otp):
     sender = adminuser
     app_pass = apppass
