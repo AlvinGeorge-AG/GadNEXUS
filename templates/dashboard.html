@@ -127,7 +127,7 @@
               <div class="post-meta">by  {{post.fname}} &middot; {{post.date}}</div> 
               <div class="post-desc">{{post.description}}</div> 
                  <div class="post-actions">
-                  <form action="/delete" method="POST" onsubmit="return confirm('Are You Sure You Want to Delete the POST ')" >
+                  <form action="/dashboard/delete" method="POST" onsubmit="return confirm('Are You Sure You Want to Delete the POST ')" >
                     <input type="text" value="{{post._id}}" name="id" hidden>
                     <button class="delete-button" type="submit">Delete</button>
                   </form>

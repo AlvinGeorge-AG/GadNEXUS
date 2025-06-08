@@ -82,7 +82,7 @@ def dash():
             return render_template("error.html",error="Please Log In !")
 
 
-@app.route("/delete",methods=["POST"])
+@app.route("/dashboard/delete",methods=["POST"])
 def delete():
     id = request.form.get("id")
     document = posts.find_one({"_id":ObjectId(id)})
