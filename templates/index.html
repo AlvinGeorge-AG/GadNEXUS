@@ -79,8 +79,10 @@
 
 
     .dropdown {
-      position: relative;
+      position: absolute;
       display: inline-block;
+      right: 0;
+      top: 29px;
     }
 
     .dropdown-toggle {
@@ -91,22 +93,20 @@
       border-radius: var(--radius);
       cursor: pointer;
       font-weight: 600;
+      right: 0;
     }
 
     .dropdown-menu {
       display: none;
-      position: absolute;
-      top: 110%;         /* Just below the button */
-      right: 0;          /* Align right edge with parent */
-      left: auto;        /* Prevent left alignment */
+      position: relative;
       background-color: #1e1e1e;
       border-radius: var(--radius);
-      min-width: 180px;  /* Or adjust as needed */
+      min-width: 160px;
+      right: 0;
+      margin-right: -10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      z-index: 10;
-      padding: 0.5rem 0;
+      z-index: 1;
     }
-
 
     .dropdown-menu a {
       color: white;
@@ -119,10 +119,15 @@
     .dropdown-menu a:hover {
       background-color: var(--accent);
       color: black;
+      
     }
 
     .dropdown:hover .dropdown-menu {
       display: block;
+      position: absolute;
+      display: inline-block;
+      right: 0;
+      top: 29px;
     }
 
 
