@@ -220,7 +220,13 @@ def send_otp(receiver_email,otp):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    if("username" in session):
+        boo =1
+        notboo = 0
+    else:    
+        boo=0
+        notboo = 1
+    return render_template("about.html",boo=boo,notboo=notboo)
 
 #for debugging
 if(__name__=="__main__"):
