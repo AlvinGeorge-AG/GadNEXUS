@@ -130,7 +130,7 @@
                 <label for="description">Short Description</label>
                 <textarea id="description" name="description" required>{{post.description}}</textarea>
                 <label for="image_url">Image URL (optional)</label>
-                <input type="text" id="image_url" name="image_url" placeholder="https://example.com/image.jpg">
+                <input type="text" id="image_url" name="image_url" value="{{post.image_url}}" placeholder="https://example.com/image.jpg">
                 <div class="control-btn">
                     <input type="hidden" name="id" value="{{ post._id }}">
                     <button type="button" class="cancel-btn" onclick="location.href='/dashboard'">Cancel</button>
