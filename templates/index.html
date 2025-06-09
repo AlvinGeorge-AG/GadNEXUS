@@ -42,8 +42,6 @@
       left: 20px;
     }
 
-    
-
     .header-title {
       font-size: 2rem;
       letter-spacing: 2px;
@@ -73,10 +71,6 @@
       top: 40px;
       left: 20px;
     }
-
-
-
-
 
     .dropdown {
       position: absolute;
@@ -119,7 +113,6 @@
     .dropdown-menu a:hover {
       background-color: var(--accent);
       color: black;
-      
     }
 
     .dropdown:hover .dropdown-menu {
@@ -129,11 +122,6 @@
       right: 0;
       top: 29px;
     }
-
-
-
-
-
 
     .container {
       max-width: 900px;
@@ -198,6 +186,16 @@
       font-size: 1.1rem;
       font-style: italic;
       letter-spacing: 1px;
+      overflow: hidden;
+    }
+
+    /* Image style for actual photo */
+    .post-image {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: var(--radius);
     }
 
     .post-title {
@@ -252,29 +250,26 @@
     </div>
   </div>
 </header>
-
 {% endblock %}
-
 
  {% block posts %}
   <div class="container">
     <!-- <a href="/add-post" class="add-post-btn">+ Share a New Gadget</a> -->
     <div class="posts-list">
       <!-- Post 1 -->
-     
-        {% for post in data %}
-            <div class="post-card">
-              <div class="image-placeholder">
-                [ Image Coming Soon ]
-              </div>
-              <div class="post-title">{{post.title}}</div>  
-              <div class="post-meta">by {{post.fname}} &middot; {{post.date}}</div> 
-              <div class="post-desc">
-                {{post.description}}
-              </div>
+      {% for post in data %}
+          <div class="post-card">
+            <div class="image-placeholder">
+              <!-- Image 1 inserted here -->
+              <img src="{{post.image_url}}" class="post-image" alt="Gadget photo"/>
             </div>
-        {% endfor %}    
-
+            <div class="post-title">{{post.title}}</div>  
+            <div class="post-meta">by {{post.fname}} &middot; {{post.date}}</div> 
+            <div class="post-desc">
+              {{post.description}}
+            </div>
+          </div>
+      {% endfor %}    
     </div>
   </div>
  {% endblock %}

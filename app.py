@@ -105,7 +105,7 @@ def edit():
         date = now.strftime("%B %Y")
         dbuser = users.find_one({"username":session["username"]})
         user = dbuser["fname"]
-        post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}   
+        post = {"title":title , "description":description , "image_url":image_url,"date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}   
         posts.update_one(
             { '_id': ObjectId(id)},
             { '$set' :post}
@@ -148,7 +148,7 @@ def post_upload():
             date = now.strftime("%B %Y")
             dbuser = users.find_one({"username":session["username"]})
             user = dbuser["fname"]
-            post = {"title":title , "description":description , "date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}
+            post = {"title":title , "description":description ,"image_url":image_url, "date":date ,"fname":user,"username":session['username'], "created_at": datetime.utcnow()}
             posts.insert_one(post)
             return redirect("/dashboard")
         else:
