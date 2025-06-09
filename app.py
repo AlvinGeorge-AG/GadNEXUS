@@ -218,6 +218,9 @@ def send_otp(receiver_email,otp):
         print("Error sending email:", e)
         return False
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 #for debugging
 if(__name__=="__main__"):
